@@ -127,6 +127,7 @@ cdef extern from "ogr_api.h":
                 void *layer, double minx, double miny, double maxx, double maxy
                 )
     int     OGR_L_TestCapability (void *layer, char *name)
+    int     OGR_L_SetAttributeFilter (void *layer, char *query)
     void *  OGRGetDriverByName (char *)
     void *  OGROpen (char *path, int mode, void *x)
     void *  OGROpenShared (char *path, int mode, void *x)

@@ -938,7 +938,8 @@ cdef class Iterator:
     cdef stepsign
 
     def __init__(self, collection, 
-            start=None, stop=None, step=None, bbox=None, mask=None):
+            start=None, stop=None, step=None, bbox=None, mask=None,
+            properties=None):
         if collection.session is None:
             raise ValueError("I/O operation on closed collection")
         self.collection = collection
@@ -964,6 +965,10 @@ cdef class Iterator:
         else:
             ograpi.OGR_L_SetSpatialFilter(
                 cogr_layer, NULL)
+
+        if properties:
+            ograpi.OGR_L_SetAttributeFilter(cogr_layer, properties)
+
         self.encoding = session.get_internalencoding()
 
         session._read_ts += 1

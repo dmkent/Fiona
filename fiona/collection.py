@@ -205,7 +205,7 @@ class Collection(object):
     def filter(self, *args, **kwds):
         """Returns an iterator over records, but filtered by a test for
         spatial intersection with the provided ``bbox``, a (minx, miny,
-        maxx, maxy) tuple or a geometry ``mask``.
+        maxx, maxy) tuple, a geometry ``mask`` or a ``properties`` query.
         
         Positional arguments ``stop`` or ``start, stop[, step]`` allows
         iteration to skip over items or stop at a specific item.
@@ -223,10 +223,11 @@ class Collection(object):
             start = stop = step = None
         bbox = kwds.get('bbox')
         mask = kwds.get('mask')
+        properties = kwds.get('properties')
         if bbox and mask:
             raise ValueError("mask and bbox can not be set together")
         self.iterator = Iterator(
-            self, start, stop, step, bbox, mask)
+            self, start, stop, step, bbox, mask, properties)
         return self.iterator
 
     def items(self, *args, **kwds):
