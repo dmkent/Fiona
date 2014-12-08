@@ -278,6 +278,13 @@ class FilterReadingTest(unittest.TestCase):
         results = list(self.c.filter(mask=mask))
         self.failUnlessEqual(len(results), 26)
 
+    def test_filter_properties(self):
+        results = list(self.c.filter(properties="STATE = 'UT'"))
+        self.failUnlessEqual(len(results), 13)
+        f = results[0]
+        self.failUnlessEqual(f['id'], "0")
+        self.failUnlessEqual(f['properties']['STATE'], 'UT')
+
 
 class UnsupportedDriverTest(unittest.TestCase):
     
